@@ -1,18 +1,20 @@
 import React from 'react'
 import Product from '../Product/Product'
+import './Dashboard.css'
 
 function Dashboard(props){
-  const invMap= props.inventory.map(e => (
+  const inventoryMap= props.inventory.map((e) => (
     <Product
-      key={e.id}
+      key={e.product_id}
+      deleteProduct= {props.deleteProduct}
       data={e}
     />
-  ))
+  ));
+
 
   return (
-    <div>
-      <h2>Products</h2>
-      <div>{invMap}</div>
+    <div class='products'>
+      <div>{inventoryMap}</div>
     </div>
   )
 }

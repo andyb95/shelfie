@@ -11,24 +11,31 @@ export default class App extends Component {
   constructor(){
     super()
     this.state={
-      inventory: []
+      inventory: [],
+      currentProduct: null
     }
-
     this.getInventory=this.getInventory.bind(this)
+    this.deleteProduct=this.deleteProduct.bind(this)
   }  
 
   componentDidMount(){
     this.getInventory()
     
-    console.log(`Inventory: ${this.state.inventory}`)
   }
 
-  getInventory(name, price, imgurl){
+  getInventory (name, price, imgurl){
     const body = {name, price, imgurl}
     axios.get('/api/inventory', body)
     .then((res) => {
       this.setState({inventory: res.data})
-      console.log('!', res.data)
+    })
+  }
+
+
+  deleteProduct(id) {
+    axios.delete(`/api/product/${id}`)
+    .then(res => {
+      this.getInventory()
     })
   }
   
@@ -36,10 +43,16 @@ export default class App extends Component {
     return (
       <div className="App">
         <Header/>
-        <Dashboard inventory={this.state.inventory}/>
-        <Form 
-        getInventory={this.getInventory}
-        />
+        {/* <div class = 'content'> */}
+          <Dashboard 
+            inventory={this.state.inventory}
+            deleteProduct={this.deleteProduct}
+          />
+          <Form 
+            getInventory={this.getInventory}
+            currentProduct={this.state.currentProduct}
+          />  
+        {/* </div>  */}
       </div>
     );
   }

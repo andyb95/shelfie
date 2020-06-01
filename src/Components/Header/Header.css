@@ -1,0 +1,27 @@
+.header{
+  height: 100px;
+  width: 100vw;
+  box-sizing: content-box;
+  background-color: rgb(121, 48, 48);
+  position: relative;
+  display: flex;
+}
+
+.logo{
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 25px;
+  left: 75px;
+}
+
+.title{
+  color: white;
+  font-weight: 400;
+  height: 30px;
+  position: absolute;
+  top: 30px;
+  left: 150px;
+  margin: 0px;
+}
+
