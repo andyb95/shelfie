@@ -43,7 +43,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <Header/>
-        {/* <div class = 'content'> */}
+        <div class = 'content'>
           <Dashboard 
             inventory={this.state.inventory}
             deleteProduct={this.deleteProduct}
@@ -52,7 +52,7 @@ export default class App extends Component {
             getInventory={this.getInventory}
             currentProduct={this.state.currentProduct}
           />  
-        {/* </div>  */}
+        </div> 
       </div>
     );
   }

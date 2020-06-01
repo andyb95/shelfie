@@ -1,3 +1,9 @@
 .products{
   width: 50vw;
 }
+
+@media(max-width:1000px){
+  .products{
+    margin-top: 500px;
+  }
+}

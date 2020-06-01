@@ -4,7 +4,7 @@
   box-sizing: content-box;
   background-color: rgb(73, 128, 73);
   position: absolute;
-  top: 130px;
+  top: 150px;
   left: 60vw;
   border-radius: 5px;
   display: flex;
@@ -38,4 +38,10 @@
   border-color: black;
   border-radius: 5px;
   margin: 15px;
+}
+
+@media(max-width:1000px){
+  .form{
+    left: 130px;
+  }
 }
