@@ -12,6 +12,7 @@
 }
 
 img{
+  background-size: contain;
   width: 50%;
   
 }
@@ -42,12 +43,13 @@ img{
 
 .product-button{
   height: 30px;
-  width: 50px;
+  width: 55px;
   border-radius: 5px;
   border-color: black;
   background-color: rgb(73, 128, 73);
   padding: 0px;
   font-weight: 700;
+  font-size: 10px;
 }
 
 

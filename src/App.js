@@ -12,45 +12,70 @@ export default class App extends Component {
     super()
     this.state={
       inventory: [],
-      currentProduct: null
+      currentProduct: {},
+      isEditing: false
     }
-    this.getInventory=this.getInventory.bind(this)
-    this.deleteProduct=this.deleteProduct.bind(this)
+    // this.getInventory=this.getInventory.bind(this)
+    // this.editProduct=this.editProduct.bind(this)
+    // this.selectProduct=this.selectProduct.bind(this)
+
   }  
 
   componentDidMount(){
     this.getInventory()
-    
   }
 
-  getInventory (name, price, imgurl){
-    const body = {name, price, imgurl}
-    axios.get('/api/inventory', body)
-    .then((res) => {
-      this.setState({inventory: res.data})
-    })
-  }
-
-
-  deleteProduct(id) {
-    axios.delete(`/api/product/${id}`)
+  getInventory = () => {
+    axios.get('/api/inventory')
     .then(res => {
-      this.getInventory()
+      this.setState({inventory: res.data})
+      
     })
+    .catch(err => console.log(err))
+  }
+
+  selectProduct = (product) => {
+    this.setState({
+      currentProduct: product,
+      isEditing: true
+    })
+    console.log(this.state.currentProduct)
+  }
+
+  toggleEdit=()=>{
+    if (!this.state.isEditing){
+      this.setState({
+        isEditing: true
+      })
+
+    } else {
+      this.setState({
+        isEditing: false
+      })
+    }
   }
   
   render(){
     return (
       <div className="App">
         <Header/>
-        <div class = 'content'>
+        <div className = 'content'>
           <Dashboard 
             inventory={this.state.inventory}
-            deleteProduct={this.deleteProduct}
-          />
+            getInventory={this.getInventory}
+            toggleEdit={this.toggleEdit}
+            selectProduct={this.selectProduct}
+            // isEditing={this.state.isEditing}
+            // deleteProduct={this.deleteProduct}
+            />
           <Form 
             getInventory={this.getInventory}
-            currentProduct={this.state.currentProduct}
+            inventory={this.state.inventory}
+            isEditing={this.state.isEditing}
+            toggleEdit={this.toggleEdit}
+            product = {this.state.currentProduct}
+            selectProduct={this.selectProduct}
+            // editProduct={this.editProduct}
           />  
         </div> 
       </div>

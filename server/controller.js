@@ -1,38 +1,60 @@
 module.exports = {
 
-  getInventory: (req,res) => {
+  getInventory: async (req,res) => {
     const db = req.app.get('db')
 
-    db.get_inventory()
-    .then(inventory => res.status(200).send(inventory))
-    .catch(err => res.status(500).send(err))
+    const inventory = await db.get_inventory()
+    if(inventory[0]){
+      res.status(200).send(inventory)
+    } else {
+      res.sendStatus(400)
+    }
   },
 
-  addProduct: (req, res) => {
+  addProduct: async (req, res) => {
     const {name, price, imgurl} = req.body
     const db = req.app.get('db')
 
-    db.add_product(name, price, imgurl)
-    .then(product => res.status(200).send(product))
-    .catch(err => res.status(500).send(err))
+    const product = await db.add_product(name, price, imgurl)
+    if (product[0]){
+      res.status(200).send(product)
+    } else {
+      res.sendStatus(400)
+    }
   },
 
-  editName: (req, res) => {
-    const {id} = req.params
-    const {value} = req.body
+  editProduct: async (req, res) => {
+    const {product_id} = req.params
+    const {name, price, imgurl} = req.body
     const db = req.app.get('db')
 
-    db.update_name([id, value])
-    .then(() => res.sendStatus(200))
-    .catch((err) => {res.status(500).send(err)})
+    const updated = await db.update_product([product_id, name, price, imgurl])
+    if(updated[0]){
+      res.status(200).send(updated)
+    } else {
+      res.sendStatus(400)
+      
+    }
   },
 
-  delete: (req, res) => {
+  deleteProduct: async (req, res) => {
     const db= req.app.get('db')
-    const {id} = req.params
+    const {product_id} = req.params
 
-    db.delete_product(id)
-    .then(()=> res.sendStatus(200))
-    .catch(err=> res.status(500).send(err))
+    
+    const deletedProduct = await db.delete_product(product_id)
+    
+    if (!deletedProduct[0]) {
+      return res.sendStatus(200)
+    } else {
+      res.sendStatus(400)
+    }
+  
+    // db.delete_product(product_id)
+    // .then(()=> res.sendStatus(200))
+    // .catch(err=> {
+    //   console.log(err)
+    //   res.status(500).send('could not delete')
+    // })
   }
 }

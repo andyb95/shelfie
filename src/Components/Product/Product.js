@@ -1,25 +1,21 @@
-import React, {Component} from 'react'
+import React from 'react'
 import './Product.css'
 
-export default class Product extends Component{
-
-  componentDidMount(){
-  }
-
-  render(){
-    return (
-      <div className='product'>
-        <img src={this.props.data.imgurl} alt={this.props.data.name}/>
-        <div className='desription'>
-          <h1 class='font'>{this.props.data.name}</h1>
-          <h1 class='font'>${this.props.data.price}</h1>
-        </div>  
-        <div class='buttons'>
-          <button class='product-button' onClick={() => this.props.deleteProduct(this.props.data.product_id)}>DELETE</button>
-          <button class='product-button' >EDIT</button>
-        </div>
+export default function Product (props) {
+  const {product_id, name, price, imgurl} = props.product
+  const {deleteProduct, selectProduct} = props
+  return (
+    <div className='product'>
+      <img src={imgurl} alt={name}/>
+      <div className='desription'>
+        <h1 className='font'>{name}</h1>
+        <h1 className='font'>${price}</h1>
+      </div>  
+      <div className='buttons'>
+        <button className='product-button' onClick={() => deleteProduct(product_id)}>DELETE</button>
+        <button className='product-button' onClick={()=> selectProduct(props.product)}>EDIT</button>
       </div>
-    )
-  } 
+    </div>
+  )
 }
 
